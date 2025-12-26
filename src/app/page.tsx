@@ -1,5 +1,4 @@
 
-
 'use client'
 
 import { DashboardPage } from '@/components/dashboard/dashboard-page';
@@ -15,5 +14,3 @@ export default function Home({ user, setImportSyllabusOpen }: HomePageProps) {
     <DashboardPage user={user} setImportSyllabusOpen={setImportSyllabusOpen} />
   );
 }
-
-    
