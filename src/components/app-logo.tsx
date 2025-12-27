@@ -1,3 +1,4 @@
+
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -18,9 +19,9 @@ export function AppLogo({ className }: { className?: string }) {
       )}
     >
       {isClient ? (
-        <span className="font-headline text-2xl text-gradient">A+</span>
+        <span className="font-headline text-2xl text-gradient">a+</span>
       ) : (
-        <span className="font-headline text-2xl">A+</span>
+        <span className="font-headline text-2xl">a+</span>
       )}
     </div>
   );
