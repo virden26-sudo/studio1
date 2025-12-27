@@ -13,7 +13,7 @@ export function AppLogo({ className }: { className?: string }) {
       <svg
         width="40"
         height="40"
-        viewBox="0 0 256 256"
+        viewBox="0 0 50 50"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid"
       >
@@ -35,10 +35,9 @@ export function AppLogo({ className }: { className?: string }) {
           dominantBaseline="central"
           textAnchor="middle"
           fill="url(#grad1)"
-          fontSize="150"
-          fontFamily="Arial, Helvetica, sans-serif"
-          fontWeight="bold"
-          dy=".05em"
+          fontSize="36"
+          fontFamily="'Great Vibes', cursive"
+          dy=".1em"
         >
           A+
         </text>
