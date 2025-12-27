@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 export function AppLogo({ className }: { className?: string }) {
   return (
@@ -11,7 +10,12 @@ export function AppLogo({ className }: { className?: string }) {
         className
       )}
     >
-      <Image src="/logo.png" alt="Agenda+ Logo" width={48} height={48} />
+      <span
+        className="font-headline text-4xl text-gradient"
+        style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.2)" }}
+      >
+        A+
+      </span>
     </div>
   );
 }
