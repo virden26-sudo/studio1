@@ -85,7 +85,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
         <SidebarHeader className="items-center justify-center p-4">
           <AppLogo />
           <h1 className="text-2xl font-bold text-primary group-data-[collapsible=icon]:hidden">
-            CourseCompass
+            Agenda+
           </h1>
         </SidebarHeader>
         <SidebarContent className="p-2">
