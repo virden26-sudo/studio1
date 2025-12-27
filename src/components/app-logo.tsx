@@ -36,8 +36,8 @@ export function AppLogo({ className }: { className?: string }) {
           textAnchor="middle"
           fill="url(#grad1)"
           fontSize="150"
-          fontFamily="'Great Vibes', cursive"
-          fontWeight="normal"
+          fontFamily="Arial, Helvetica, sans-serif"
+          fontWeight="bold"
           dy=".05em"
         >
           A+
