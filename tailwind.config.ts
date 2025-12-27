@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
-        headline: ['Pacifico', 'cursive'],
+        headline: ['"Great Vibes"', 'cursive'],
         code: ['monospace'],
       },
       colors: {
