@@ -1,3 +1,6 @@
+
+"use client";
+
 import { BarChart3, MoreVertical } from "lucide-react";
 import {
   Card,
@@ -7,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { grades } from "@/lib/mock-data";
 import {
   Table,
   TableBody,
@@ -15,7 +17,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
+import { useGrades } from "@/context/grades-context";
+import { Skeleton } from "../ui/skeleton";
 
 function getGradeColor(grade: number) {
     if (grade >= 90) return 'text-green-600'
@@ -25,7 +29,12 @@ function getGradeColor(grade: number) {
 }
 
 export function GradesCard() {
-  const recentGrades = grades.slice(0, 4);
+  const { courses, loading } = useGrades();
+  
+  const recentGrades = courses
+    .flatMap(course => course.grades.map(grade => ({ ...grade, courseName: course.name })))
+    .slice(0, 4);
+
 
   return (
     <Card className="h-full flex flex-col">
@@ -53,13 +62,32 @@ export function GradesCard() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {recentGrades.map(grade => (
-                    <TableRow key={grade.id}>
-                        <TableCell className="font-medium">{grade.assignment}</TableCell>
-                        <TableCell>{grade.course}</TableCell>
-                        <TableCell className={`text-right font-bold ${getGradeColor(grade.grade)}`}>{grade.grade}%</TableCell>
+                {loading ? (
+                  <>
+                    <TableRow>
+                      <TableCell><Skeleton className="h-5 w-3/4" /></TableCell>
+                      <TableCell><Skeleton className="h-5 w-1/2" /></TableCell>
+                      <TableCell className="text-right"><Skeleton className="h-5 w-1/4 ml-auto" /></TableCell>
                     </TableRow>
-                ))}
+                     <TableRow>
+                      <TableCell><Skeleton className="h-5 w-3/4" /></TableCell>
+                      <TableCell><Skeleton className="h-5 w-1/2" /></TableCell>
+                      <TableCell className="text-right"><Skeleton className="h-5 w-1/4 ml-auto" /></TableCell>
+                    </TableRow>
+                  </>
+                ) : recentGrades.length > 0 ? (
+                  recentGrades.map(grade => (
+                      <TableRow key={grade.id}>
+                          <TableCell className="font-medium">{grade.assignmentTitle}</TableCell>
+                          <TableCell>{grade.courseName}</TableCell>
+                          <TableCell className={`text-right font-bold ${getGradeColor(grade.score / grade.total * 100)}`}>{Math.round(grade.score / grade.total * 100)}%</TableCell>
+                      </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={3} className="text-center text-muted-foreground">No grades have been recorded yet.</TableCell>
+                  </TableRow>
+                )}
             </TableBody>
         </Table>
       </CardContent>

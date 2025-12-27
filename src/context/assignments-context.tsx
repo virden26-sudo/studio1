@@ -2,6 +2,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { assignments as mockAssignments } from '@/lib/mock-data';
 
 // Define the shape of an assignment
 export interface Assignment {
@@ -39,7 +40,7 @@ export const AssignmentsProvider = ({ children }: { children: ReactNode }) => {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Load assignments from localStorage on initial render
+  // Load assignments from localStorage on initial render or simulate fetch
   useEffect(() => {
     try {
       const storedAssignments = localStorage.getItem('agendaAssignments');
@@ -50,9 +51,16 @@ export const AssignmentsProvider = ({ children }: { children: ReactNode }) => {
           dueDate: new Date(a.dueDate),
         }));
         setAssignments(parsedAssignments);
+      } else {
+        // If nothing is in storage, load mock data to simulate auto-update
+        const assignmentsWithDateObjects = mockAssignments.map(a => ({...a, dueDate: new Date(a.dueDate)}));
+        setAssignments(assignmentsWithDateObjects);
       }
     } catch (error) {
-      console.error("Failed to load assignments from local storage", error);
+      console.error("Failed to load assignments", error);
+      // Fallback to mock data on error
+      const assignmentsWithDateObjects = mockAssignments.map(a => ({...a, dueDate: new Date(a.dueDate)}));
+      setAssignments(assignmentsWithDateObjects);
     } finally {
         setLoading(false);
     }
@@ -109,5 +117,3 @@ export const AssignmentsProvider = ({ children }: { children: ReactNode }) => {
     </AssignmentsContext.Provider>
   );
 };
-
-    

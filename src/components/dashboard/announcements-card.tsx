@@ -1,3 +1,6 @@
+
+"use client";
+
 import { Megaphone, MoreVertical } from "lucide-react";
 import {
   Card,
@@ -7,10 +10,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { announcements } from "@/lib/mock-data";
+import { announcements as mockAnnouncements } from "@/lib/mock-data";
 import { Badge } from "@/components/ui/badge";
+import { useEffect, useState } from "react";
+import type { Announcement } from "@/lib/mock-data";
 
 export function AnnouncementsCard() {
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+
+  useEffect(() => {
+    // Simulate fetching announcements
+    setAnnouncements(mockAnnouncements);
+  }, [])
+
   return (
     <Card className="h-full flex flex-col">
       <CardHeader>
@@ -29,7 +41,7 @@ export function AnnouncementsCard() {
       </CardHeader>
       <CardContent className="flex-grow">
         <div className="space-y-4">
-          {announcements.map((announcement) => (
+          {announcements.length > 0 ? announcements.map((announcement) => (
             <div key={announcement.id} className="flex items-start gap-4">
               <div className="flex-1 space-y-1">
                 <p className="font-medium">{announcement.title}</p>
@@ -38,11 +50,13 @@ export function AnnouncementsCard() {
                 </p>
                 <div className="flex items-center gap-2 pt-1">
                     <Badge variant="secondary">{announcement.course}</Badge>
-                    <p className="text-xs text-muted-foreground">{announcement.date.toLocaleDateString()}</p>
+                    <p className="text-xs text-muted-foreground">{new Date(announcement.date).toLocaleDateString()}</p>
                 </div>
               </div>
             </div>
-          ))}
+          )) : (
+            <p className="text-muted-foreground text-center">No announcements.</p>
+          )}
         </div>
       </CardContent>
     </Card>
