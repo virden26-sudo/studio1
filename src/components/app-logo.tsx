@@ -8,7 +8,7 @@ export function AppLogo({ className }: { className?: string }) {
         className
       )}
     >
-      <span className="text-3xl font-headline">A+</span>
+      <span className="text-3xl italic">A+</span>
     </div>
   );
 }
