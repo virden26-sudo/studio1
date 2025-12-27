@@ -15,21 +15,17 @@ export function AppLogo() {
     >
       <defs>
         <linearGradient id="logoGradient" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))' }} />
-          <stop offset="100%" style={{ stopColor: 'hsl(var(--accent))' }} />
-        </linearGradient>
-         <linearGradient id="logoGradient2" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" style={{ stopColor: '#00B09B' }} />
-          <stop offset="100%" style={{ stopColor: '#96E6A1' }} />
+          <stop offset="0%" style={{ stopColor: 'hsl(210, 90%, 55%)' }} />
+          <stop offset="100%" style={{ stopColor: 'hsl(140, 70%, 50%)' }} />
         </linearGradient>
          <filter id="drop-shadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
-            <feOffset dx="1" dy="1" result="offsetblur"/>
-            <feComponentTransfer>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur"/>
+            <feOffset in="blur" dx="1" dy="2" result="offsetBlur"/>
+            <feComponentTransfer in="offsetBlur" result="shadow">
                 <feFuncA type="linear" slope="0.3"/>
             </feComponentTransfer>
             <feMerge> 
-                <feMergeNode/>
+                <feMergeNode in="shadow"/>
                 <feMergeNode in="SourceGraphic"/> 
             </feMerge>
         </filter>
@@ -46,7 +42,7 @@ export function AppLogo() {
         <path
           d="M85,50 L105,50 M95,40 L95,60"
           fill="none"
-          stroke="url(#logoGradient2)"
+          stroke="url(#logoGradient)"
           strokeWidth="8"
           strokeLinecap="round"
           strokeLinejoin="round"
