@@ -12,9 +12,9 @@ export function AppLogo({ className }: { className?: string }) {
       )}
     >
       <svg
-        width="28"
-        height="28"
-        viewBox="0 0 40 40"
+        width="32"
+        height="32"
+        viewBox="0 0 48 48"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid"
@@ -32,7 +32,7 @@ export function AppLogo({ className }: { className?: string }) {
           </linearGradient>
         </defs>
          <path 
-            d="M17.4,31.5l-2.8-8.2h-5.2l-2.8,8.2H2.5L9.8,9.2h4.3l7.3,22.3H17.4z M13.5,19.9l-2.1-6.5c-0.3-1-0.5-2.2-0.8-3.5h-0.1 c-0.2,1.3-0.5,2.5-0.8,3.5l-2.1,6.5H13.5z M25.8,31.5V18.8h-4.3v-3.7h4.3v-4.3h3.7v4.3h4.3v3.7h-4.3v12.7H25.8z"
+            d="M21.72 11.68C22.5153 10.7494 23.952 10.6401 24.9393 11.3934C25.9267 12.1467 26.3134 13.4357 25.86 14.56L17.52 35.8H14.16L22.92 13.48C23.16 12.8933 22.9527 12.2134 22.44 11.84C21.9273 11.4667 21.2133 11.4134 20.64 11.72L20.28 11.92L21.72 11.68ZM32.4 20.08H38.28V23.44H32.4V29.56H28.92V23.44H23.04V20.08H28.92V14.1999H32.4V20.08Z"
             fill="url(#grad1)"
           />
       </svg>
