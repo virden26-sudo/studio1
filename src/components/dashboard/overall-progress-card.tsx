@@ -18,7 +18,7 @@ export function OverallProgressCard() {
       <CardHeader>
         <div className="flex justify-between items-start">
             <div>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-gradient">
                     <Target className="h-6 w-6" />
                     Overall Progress
                 </CardTitle>
@@ -38,7 +38,7 @@ export function OverallProgressCard() {
                 </g>
             </svg>
             <div className="absolute top-1/2 start-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                <span className="text-center text-4xl font-bold text-primary">{overallGrade}%</span>
+                <span className="text-center text-4xl font-bold text-gradient">{overallGrade}%</span>
             </div>
         </div>
         <p className="text-center text-muted-foreground">

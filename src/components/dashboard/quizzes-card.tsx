@@ -18,7 +18,7 @@ export function QuizzesCard() {
       <CardHeader>
         <div className="flex justify-between items-start">
             <div>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-gradient">
                 <FileQuestion className="h-6 w-6" />
                 Upcoming Quizzes
                 </CardTitle>

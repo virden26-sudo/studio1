@@ -19,7 +19,7 @@ export function DiscussionsCard() {
       <CardHeader>
         <div className="flex justify-between items-start">
             <div>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-gradient">
                 <MessageSquare className="h-6 w-6" />
                 Active Discussions
                 </CardTitle>

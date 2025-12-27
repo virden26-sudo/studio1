@@ -32,7 +32,7 @@ export function GradesCard() {
       <CardHeader>
          <div className="flex justify-between items-start">
             <div>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-gradient">
                 <BarChart3 className="h-6 w-6" />
                 Recent Grades
                 </CardTitle>

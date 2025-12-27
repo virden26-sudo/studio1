@@ -22,7 +22,7 @@ export function AssignmentsCard() {
       <CardHeader>
         <div className="flex justify-between items-start">
             <div>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-gradient">
                 <BookOpenCheck className="h-6 w-6" />
                 Upcoming Assignments
                 </CardTitle>

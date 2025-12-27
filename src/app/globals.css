@@ -87,9 +87,9 @@ body {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)));
+    /*background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)));
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;*/
   }
 }
 

@@ -16,7 +16,7 @@ export function AnnouncementsCard() {
       <CardHeader>
         <div className="flex justify-between items-start">
             <div>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-gradient">
                 <Megaphone className="h-6 w-6" />
                 Announcements
                 </CardTitle>
