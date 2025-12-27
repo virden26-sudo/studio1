@@ -198,7 +198,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
           >
             <SidebarHeader className="items-center justify-center p-4">
               <div className="flex items-center gap-2 group-data-[collapsible=icon]:gap-0">
-                  <AppLogo />
+                  
               </div>
             </SidebarHeader>
             <SidebarContent className="p-2">
@@ -397,3 +397,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    
