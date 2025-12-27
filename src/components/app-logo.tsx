@@ -20,14 +20,14 @@ export function AppLogo({ className }: { className?: string }) {
         preserveAspectRatio="xMidYMid"
       >
         <defs>
-          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="grad1" x1="0%" y1="100%" x2="100%" y2="0%">
             <stop
               offset="0%"
-              style={{ stopColor: "hsl(var(--primary))", stopOpacity: 1 }}
+              style={{ stopColor: "hsl(var(--accent))", stopOpacity: 1 }}
             />
             <stop
               offset="100%"
-              style={{ stopColor: "hsl(var(--accent))", stopOpacity: 1 }}
+              style={{ stopColor: "hsl(var(--primary))", stopOpacity: 1 }}
             />
           </linearGradient>
         </defs>
