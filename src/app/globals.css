@@ -83,12 +83,42 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background;
+    background-image: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  
+  body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  *:not(h1, h2, h3, h4, h5, h6) {
+    color: transparent !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
 }
 
 @layer components {
   .tie-dye-gradient {
     background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)));
+  }
+
+  .text-gradient {
+    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
