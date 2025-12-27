@@ -14,10 +14,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { UploadCloud, File as FileIcon, Loader2 } from "lucide-react";
+import { UploadCloud, File as FileIcon, Loader2, ClipboardPaste } from "lucide-react";
 import { extractSyllabusData } from "@/ai/flows/extract-syllabus-flow";
 import { useAssignments } from "@/context/assignments-context";
 import { useGrades } from "@/context/grades-context";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
 
 type ImportSyllabusDialogProps = {
   open: boolean;
@@ -26,10 +28,12 @@ type ImportSyllabusDialogProps = {
 
 export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialogProps) {
   const [file, setFile] = useState<File | null>(null);
+  const [pastedText, setPastedText] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const { addAssignment: addAssignmentToContext } = useAssignments();
   const { addCourse } = useGrades();
+  const [activeTab, setActiveTab] = useState("paste");
 
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,18 +43,35 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
   };
 
   const handleImport = async () => {
-    if (!file) {
-      toast({
-        variant: "destructive",
-        title: "No file selected",
-        description: "Please choose a syllabus file to import.",
-      });
-      return;
+    let fileContent: string | null = null;
+    
+    if (activeTab === 'paste') {
+        if (!pastedText.trim()) {
+            toast({
+                variant: "destructive",
+                title: "No text provided",
+                description: "Please paste your syllabus content into the text area.",
+            });
+            return;
+        }
+        fileContent = pastedText;
+    } else { // file upload
+        if (!file) {
+            toast({
+                variant: "destructive",
+                title: "No file selected",
+                description: "Please choose a syllabus file to import.",
+            });
+            return;
+        }
+        fileContent = await file.text();
     }
+
+
+    if (!fileContent) return;
 
     setLoading(true);
     try {
-      const fileContent = await file.text();
       const extractedData = await extractSyllabusData(fileContent);
       
       addCourse(extractedData.courseName);
@@ -63,7 +84,6 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
         })
       });
       
-      // We don't have a quiz context yet, but we can log it
       console.log("Extracted Quizzes:", extractedData.quizzes);
 
       toast({
@@ -73,13 +93,14 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
       
       // Reset and close
       setFile(null);
+      setPastedText("");
       onOpenChange(false);
     } catch (error) {
       console.error("Syllabus import failed:", error);
       toast({
         variant: "destructive",
         title: "Import Failed",
-        description: "Could not extract data from the syllabus. Please try a different file.",
+        description: "Could not extract data from the syllabus. Please try a different file or check the pasted text.",
       });
     } finally {
       setLoading(false);
@@ -88,43 +109,65 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="sm:max-w-[480px]">
         <DialogHeader>
           <DialogTitle className="text-gradient flex items-center gap-2">
-            <UploadCloud /> Import Syllabus
+            <UploadCloud /> Sync Data
           </DialogTitle>
           <DialogDescription>
-            Upload a syllabus file (.txt, .md) to automatically add assignments and quizzes.
+            Choose a method to import your course data. You can paste content from your student portal or upload a syllabus file.
           </DialogDescription>
         </DialogHeader>
-        <div className="py-4 space-y-4">
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="syllabus-file">Syllabus File</Label>
-            <div className="relative">
-              <Input 
-                id="syllabus-file" 
-                type="file" 
-                onChange={handleFileChange} 
-                className="w-full h-10 pl-10"
-                accept=".txt,.md,text/plain,text/markdown"
-              />
-              <FileIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-            </div>
-            {file && <p className="text-sm text-muted-foreground">Selected: {file.name}</p>}
-          </div>
-        </div>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="pt-4">
+            <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="paste">
+                    <ClipboardPaste className="mr-2 h-4 w-4" />
+                    Paste from Portal
+                </TabsTrigger>
+                <TabsTrigger value="upload">
+                    <FileIcon className="mr-2 h-4 w-4" />
+                    Upload File
+                </TabsTrigger>
+            </TabsList>
+            <TabsContent value="paste" className="py-4 space-y-2">
+                 <Label htmlFor="syllabus-text">Syllabus or Portal Content</Label>
+                 <Textarea 
+                    id="syllabus-text"
+                    placeholder="Paste the content from your syllabus or student portal here..."
+                    className="h-48 resize-none"
+                    value={pastedText}
+                    onChange={(e) => setPastedText(e.target.value)}
+                 />
+            </TabsContent>
+            <TabsContent value="upload" className="py-4">
+                <div className="grid w-full items-center gap-1.5">
+                    <Label htmlFor="syllabus-file">Syllabus File (.txt, .md)</Label>
+                    <div className="relative">
+                    <Input 
+                        id="syllabus-file" 
+                        type="file" 
+                        onChange={handleFileChange} 
+                        className="w-full h-10"
+                        accept=".txt,.md,text/plain,text/markdown"
+                    />
+                    </div>
+                    {file && <p className="text-sm text-muted-foreground mt-2">Selected: {file.name}</p>}
+                </div>
+            </TabsContent>
+        </Tabs>
+
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
             Cancel
           </Button>
-          <Button onClick={handleImport} disabled={!file || loading}>
+          <Button onClick={handleImport} disabled={loading || (activeTab === 'upload' && !file) || (activeTab === 'paste' && !pastedText.trim())}>
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Importing...
+                Syncing...
               </>
             ) : (
-              "Import"
+              "Sync Now"
             )}
           </Button>
         </DialogFooter>
