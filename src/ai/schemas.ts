@@ -1,7 +1,9 @@
+
 import { z } from 'genkit';
 
-const AssignmentSchema = z.object({
+export const AssignmentSchema = z.object({
   title: z.string().describe('The title of the assignment.'),
+  course: z.string().describe("The course name for the assignment (e.g., 'CS 101', 'Intro to Psychology')."),
   dueDate: z.string().describe('The due date of the assignment in ISO 8601 format (YYYY-MM-DD).'),
 });
 
