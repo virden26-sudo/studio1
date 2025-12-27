@@ -1,14 +1,15 @@
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export function AppLogo({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "tie-dye-gradient text-primary-foreground rounded-lg p-2 flex items-center justify-center w-12 h-12 shadow-md",
+        "rounded-lg flex items-center justify-center w-12 h-12",
         className
       )}
     >
-      <span className="text-3xl font-headline">A+</span>
+      <Image src="/logo.png" alt="Agenda+ Logo" width={48} height={48} />
     </div>
   );
 }
