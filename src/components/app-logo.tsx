@@ -1,16 +1,9 @@
-
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export function AppLogo({ className }: { className?: string }) {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
   return (
     <div
       className={cn(
@@ -18,11 +11,7 @@ export function AppLogo({ className }: { className?: string }) {
         className
       )}
     >
-      {isClient ? (
-        <span className="font-headline text-4xl text-gradient" style={{ textShadow: '3px 3px 5px hsl(var(--primary) / 0.5)' }}>A+</span>
-      ) : (
-        <span className="font-headline text-4xl">A+</span>
-      )}
+      <Image src="/logo.png" alt="Agenda+ Logo" width={48} height={48} />
     </div>
   );
 }
