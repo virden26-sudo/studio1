@@ -68,7 +68,6 @@ import {
 
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
-import { AppLogo } from "@/components/app-logo";
 
 import { AddAssignmentDialog } from "@/components/dashboard/add-assignment-dialog";
 import { IntelligentSchedulerDialog } from "@/components/dashboard/intelligent-scheduler-dialog";
@@ -182,7 +181,6 @@ function AppShell({ children }: { children: React.ReactNode }) {
     return (
       <div className="flex items-center justify-center h-screen bg-background">
         <div className="flex items-center gap-2">
-            <AppLogo />
             <span className="text-xl font-headline">Loading Agenda+...</span>
         </div>
       </div>
@@ -198,7 +196,6 @@ function AppShell({ children }: { children: React.ReactNode }) {
             className="group-data-[variant=sidebar]:border-r-0"
           >
             <SidebarHeader className="items-center justify-center p-4">
-              <AppLogo />
               <h1 className="text-2xl font-headline text-gradient group-data-[collapsible=icon]:hidden">
                 Agenda+
               </h1>
