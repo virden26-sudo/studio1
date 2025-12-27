@@ -20,20 +20,16 @@ export function AppLogo() {
           <stop offset="100%" stopColor="hsl(90, 100%, 75%)" />
         </linearGradient>
         <filter id="drop-shadow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur" />
-          <feOffset in="blur" dx="1" dy="2" result="offsetBlur" />
+          <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
+          <feOffset in="blur" dx="2" dy="3" result="offsetBlur" />
            <feComponentTransfer in="offsetBlur" result="shadow">
-                <feFuncA type="linear" slope="0.3"/>
+                <feFuncA type="linear" slope="0.4"/>
             </feComponentTransfer>
           <feMerge>
             <feMergeNode in="shadow" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
-        <linearGradient id="highlightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style={{stopColor: 'white', stopOpacity: 0.7}} />
-            <stop offset="100%" style={{stopColor: 'white', stopOpacity: 0.1}} />
-        </linearGradient>
       </defs>
       <g filter="url(#drop-shadow)">
         <path
@@ -49,23 +45,6 @@ export function AppLogo() {
           fill="none"
           stroke="url(#logoGradient)"
           strokeWidth="11"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        {/* Highlights */}
-        <path
-          d="M30,65 C35,65 40,70 45,75 M55,85 C70,85 75,65 60,35 C52,22 40,22 35,25 M65,55 C72,62 80,65 80,65"
-          fill="none"
-          stroke="url(#highlightGradient)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-         <path
-          d="M85,50 L105,50 M95,40 L95,60"
-          fill="none"
-          stroke="url(#highlightGradient)"
-          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
