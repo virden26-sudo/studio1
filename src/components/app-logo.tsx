@@ -1,7 +1,16 @@
 
+"use client";
+
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
 export function AppLogo({ className }: { className?: string }) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <div
       className={cn(
@@ -9,7 +18,11 @@ export function AppLogo({ className }: { className?: string }) {
         className
       )}
     >
-      <span className="font-headline text-2xl text-gradient">A+</span>
+      {isClient ? (
+        <span className="font-headline text-2xl text-gradient">A+</span>
+      ) : (
+        <span className="font-headline text-2xl">A+</span>
+      )}
     </div>
   );
 }
