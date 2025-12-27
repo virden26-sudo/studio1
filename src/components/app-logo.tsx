@@ -19,7 +19,7 @@ export function AppLogo({ className }: { className?: string }) {
       )}
     >
       {isClient ? (
-        <span className="font-headline text-4xl text-gradient" style={{ textShadow: '2px 2px 4px hsl(var(--primary) / 0.4)' }}>A+</span>
+        <span className="font-headline text-4xl text-gradient" style={{ textShadow: '3px 3px 5px hsl(var(--primary) / 0.5)' }}>A+</span>
       ) : (
         <span className="font-headline text-4xl">A+</span>
       )}
