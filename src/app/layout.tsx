@@ -181,7 +181,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
       <div className="flex items-center justify-center h-screen bg-background">
         <div className="flex items-center gap-2">
             <AppLogo />
-            <span className="text-xl font-semibold">Loading Agenda+...</span>
+            <span className="text-xl font-headline">Loading Agenda+...</span>
         </div>
       </div>
     );
@@ -197,7 +197,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
           >
             <SidebarHeader className="items-center justify-center p-4">
               <AppLogo />
-              <h1 className="text-2xl font-bold text-primary group-data-[collapsible=icon]:hidden">
+              <h1 className="text-2xl font-headline text-primary group-data-[collapsible=icon]:hidden">
                 Agenda+
               </h1>
             </SidebarHeader>
@@ -296,7 +296,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
             <header className="flex h-16 items-center justify-between border-b bg-background/80 backdrop-blur-sm px-4 md:px-6 sticky top-0 z-30">
               <div className="flex items-center gap-4">
                  <SidebarTrigger className="md:hidden" />
-                 <h2 className="text-2xl font-semibold">{pageTitle}</h2>
+                 <h2 className="text-2xl font-headline">{pageTitle}</h2>
               </div>
               <div className="flex items-center gap-4">
                 <Button variant="outline" onClick={handleShare}>
@@ -318,7 +318,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
           <Dialog open={namePromptOpen} onOpenChange={(isOpen) => { if (user) { setNamePromptOpen(isOpen); } }}>
             <DialogContent onInteractOutside={(e) => {if (!user) e.preventDefault()}}>
                 <DialogHeader>
-                    <UIDialogTitle>Welcome to Agenda+</UIDialogTitle>
+                    <UIDialogTitle className="font-headline">Welcome to Agenda+</UIDialogTitle>
                     <DialogDescription>Please enter your name and student portal URL to personalize your experience.</DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
@@ -382,6 +382,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#fff" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <style>{`
           .text-gradient {

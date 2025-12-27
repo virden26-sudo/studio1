@@ -4,7 +4,7 @@ export function AppLogo({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "bg-primary text-primary-foreground rounded-lg p-2 flex items-center justify-center w-12 h-12 shadow-md",
+        "tie-dye-gradient text-primary-foreground rounded-lg p-2 flex items-center justify-center w-12 h-12 shadow-md",
         className
       )}
     >
