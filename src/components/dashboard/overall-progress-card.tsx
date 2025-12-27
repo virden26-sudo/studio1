@@ -1,3 +1,6 @@
+
+"use client";
+
 import { Target, MoreVertical } from "lucide-react";
 import {
   Card,
@@ -7,10 +10,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AppLogo } from "../app-logo";
+import { CircularProgress } from "@/components/ui/circular-progress";
+import { useGrades } from "@/context/grades-context";
+import { useMemo } from "react";
+import { Skeleton } from "../ui/skeleton";
+
 
 export function OverallProgressCard() {
-  const courseName = "CS 101: Intro to Programming"
+  const { courses, loading } = useGrades();
+  
+  const overallAverage = useMemo(() => {
+    if (courses.length === 0) return 0;
+    const totalGrade = courses.reduce((acc, course) => acc + course.grade, 0);
+    return Math.round(totalGrade / courses.length);
+  }, [courses]);
+
+  const courseName = "Overall Average"
 
   return (
     <Card className="h-full flex flex-col">
@@ -29,9 +44,13 @@ export function OverallProgressCard() {
         </div>
       </CardHeader>
       <CardContent className="flex-grow flex flex-col items-center justify-center gap-4">
-        <div className="w-40 h-40">
-          <AppLogo />
-        </div>
+        {loading ? (
+            <Skeleton className="w-40 h-40 rounded-full" />
+        ) : (
+            <div className="w-40 h-40">
+              <CircularProgress progress={overallAverage} />
+            </div>
+        )}
       </CardContent>
     </Card>
   );
