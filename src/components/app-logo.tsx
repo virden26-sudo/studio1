@@ -14,7 +14,7 @@ export function AppLogo({ className }: { className?: string }) {
         className="font-headline text-4xl text-gradient"
         style={{ textShadow: "1px 1px 3px hsla(var(--primary), 0.3)" }}
       >
-        A+
+        a+
       </span>
     </div>
   );
