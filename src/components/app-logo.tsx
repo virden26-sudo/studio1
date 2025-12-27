@@ -5,11 +5,11 @@ export function AppLogo({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "rounded-lg flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-300 to-blue-300",
+        "rounded-full flex items-center justify-center w-12 h-12 bg-card shadow-md",
         className
       )}
     >
-      <span className="font-headline text-2xl text-white">A+</span>
+      <span className="font-headline text-2xl text-gradient">A+</span>
     </div>
   );
 }
