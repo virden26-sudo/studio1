@@ -7,11 +7,11 @@ import { SyllabusDataSchema } from '@/ai/schemas';
 
 const syllabusPrompt = ai.definePrompt({
     name: 'syllabusPrompt',
-    input: { schema: z.object({ syllabusText: z.string() }) },
+    input: { schema: z.object({ syllabusText: z.string(), currentDate: z.string() }) },
     output: { schema: SyllabusDataSchema },
     prompt: `You are an expert academic assistant. Your task is to parse the following syllabus text and extract key information about the course, its assignments, and quizzes.
 
-Today's date is ${new Date().toLocaleDateString()}. When extracting due dates, please resolve them to a specific calendar date in YYYY-MM-DD format. For example, "due next Friday" should be converted to the correct date.
+Today's date is {{{currentDate}}}. When extracting due dates, please resolve them to a specific calendar date in YYYY-MM-DD format. For example, "due next Friday" should be converted to the correct date.
 
 Syllabus Text:
 {{{syllabusText}}}
@@ -27,7 +27,10 @@ const extractSyllabusFlow = ai.defineFlow(
     outputSchema: SyllabusDataSchema,
   },
   async (syllabusText) => {
-    const { output } = await syllabusPrompt({ syllabusText });
+    const { output } = await syllabusPrompt({ 
+        syllabusText,
+        currentDate: new Date().toLocaleDateString()
+    });
     if (!output) {
       throw new Error("Syllabus parsing failed to produce output.");
     }

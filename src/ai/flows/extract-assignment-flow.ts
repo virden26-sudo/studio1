@@ -9,11 +9,11 @@ const SingleAssignmentSchema = AssignmentSchema.pick({ title: true, course: true
 
 const assignmentPrompt = ai.definePrompt({
     name: 'assignmentPrompt',
-    input: { schema: z.object({ assignmentText: z.string() }) },
+    input: { schema: z.object({ assignmentText: z.string(), currentDate: z.string() }) },
     output: { schema: SingleAssignmentSchema },
     prompt: `You are an expert academic assistant. Your task is to parse the following text and extract the assignment details.
 
-Today's date is ${new Date().toLocaleDateString()}. When extracting due dates, please resolve them to a specific calendar date in YYYY-MM-DD format. For example, "due next Friday" should be converted to the correct date.
+Today's date is {{{currentDate}}}. When extracting due dates, please resolve them to a specific calendar date in YYYY-MM-DD format. For example, "due next Friday" should be converted to the correct date.
 
 Assignment Text:
 {{{assignmentText}}}
@@ -29,7 +29,10 @@ const extractAssignmentFlow = ai.defineFlow(
     outputSchema: SingleAssignmentSchema,
   },
   async (assignmentText) => {
-    const { output } = await assignmentPrompt({ assignmentText });
+    const { output } = await assignmentPrompt({ 
+        assignmentText,
+        currentDate: new Date().toLocaleDateString() 
+    });
     if (!output) {
       throw new Error("Assignment parsing failed to produce output.");
     }

@@ -13,7 +13,10 @@ const AssignmentInputSchema = z.object({
   completed: z.boolean(),
 });
 
-const StudyPlanInputSchema = z.array(AssignmentInputSchema);
+const StudyPlanInputSchema = z.object({
+    assignments: z.array(AssignmentInputSchema),
+    currentDate: z.string(),
+});
 
 const studyPlanPrompt = ai.definePrompt({
   name: 'studyPlanPrompt',
@@ -21,12 +24,12 @@ const studyPlanPrompt = ai.definePrompt({
   output: { schema: StudyPlanSchema },
   prompt: `You are an expert academic advisor. Your task is to create a realistic and effective study plan for a student based on their list of upcoming assignments.
 
-Today's date is ${new Date().toLocaleDateString()}. The student needs a clear, actionable plan to help them prepare for their deadlines without cramming.
+Today's date is {{{currentDate}}}. The student needs a clear, actionable plan to help them prepare for their deadlines without cramming.
 
 Generate a series of study sessions. For each session, provide a clear topic, specific goals, a start and end time, and link it to a specific assignment. Schedule sessions logically, leaving some buffer room around due dates. Prioritize assignments that are due sooner.
 
 Here is the list of upcoming assignments:
-{{#each input}}
+{{#each assignments}}
 - {{title}} (Course: {{course}}) - Due: {{dueDate}}
 {{/each}}
 
@@ -36,11 +39,14 @@ Create a concise, encouraging summary for the plan and then provide the detailed
 const generateStudyPlanFlow = ai.defineFlow(
   {
     name: 'generateStudyPlanFlow',
-    inputSchema: StudyPlanInputSchema,
+    inputSchema: z.array(AssignmentInputSchema),
     outputSchema: StudyPlanSchema,
   },
   async (assignments) => {
-    const { output } = await studyPlanPrompt(assignments);
+    const { output } = await studyPlanPrompt({
+        assignments,
+        currentDate: new Date().toLocaleDateString()
+    });
     if (!output) {
       throw new Error("Study plan generation failed to produce output.");
     }
@@ -48,6 +54,6 @@ const generateStudyPlanFlow = ai.defineFlow(
   }
 );
 
-export async function generateStudyPlan(assignments: z.infer<typeof StudyPlanInputSchema>) {
+export async function generateStudyPlan(assignments: z.infer<typeof AssignmentInputSchema>[]) {
   return generateStudyPlanFlow(assignments);
 }
