@@ -5,13 +5,15 @@ import * as React from 'react';
 export function AppLogo() {
   return (
     <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="24" cy="24" r="23" stroke="hsl(var(--border))" strokeWidth="2" fill="hsl(var(--card))" />
+      <rect width="48" height="48" rx="8" fill="hsl(var(--sidebar-accent))"/>
+      <circle cx="24" cy="24" r="18" fill="hsl(var(--background))" />
+      <circle cx="24" cy="24" r="17" stroke="hsl(var(--border))" strokeWidth="2"/>
       <text
         x="50%"
         y="50%"
         dominantBaseline="central"
         textAnchor="middle"
-        fontSize="28"
+        fontSize="24"
         fontFamily="Great Vibes, cursive"
         fill="url(#grad1)"
         dy=".1em"
@@ -20,8 +22,8 @@ export function AppLogo() {
       </text>
       <defs>
         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{stopColor: 'hsl(var(--primary))', stopOpacity:1}} />
-          <stop offset="100%" style={{stopColor: 'hsl(var(--accent))', stopOpacity:1}} />
+          <stop offset="0%" stopColor="hsl(var(--primary))" />
+          <stop offset="100%" stopColor="hsl(var(--accent))" />
         </linearGradient>
       </defs>
     </svg>
