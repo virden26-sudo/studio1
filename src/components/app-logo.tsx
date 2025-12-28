@@ -14,9 +14,10 @@ export function AppLogo() {
         y="50%"
         dominantBaseline="central"
         textAnchor="middle"
-        fontSize="24"
-        fontFamily="Arial, sans-serif"
+        fontSize="22"
+        fontFamily="'Segoe Script', cursive"
         fontWeight="bold"
+        fontStyle="italic"
         fill="url(#grad1)"
         dy=".1em"
       >
