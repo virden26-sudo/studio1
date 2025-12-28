@@ -1,10 +1,5 @@
 
 'use server';
-/**
- * @fileOverview A flow for extracting structured data from a single assignment text.
- *
- * - extractAssignmentData - A function that handles the assignment data extraction.
- */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';

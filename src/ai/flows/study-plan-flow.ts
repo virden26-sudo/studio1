@@ -1,10 +1,5 @@
 
 'use server';
-/**
- * @fileOverview A flow for generating a study plan based on assignments.
- *
- * - generateStudyPlan - Creates a study plan from a list of assignments.
- */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';

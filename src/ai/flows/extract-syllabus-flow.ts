@@ -1,10 +1,5 @@
 
 'use server';
-/**
- * @fileOverview A flow for extracting structured data from a syllabus text.
- *
- * - extractSyllabusData - A function that handles the syllabus data extraction.
- */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';

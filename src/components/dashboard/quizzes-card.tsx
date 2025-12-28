@@ -10,21 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { quizzes as mockQuizzes } from "@/lib/mock-data";
-import { Badge } from "../ui/badge";
-import { useEffect, useState } from "react";
-import type { Quiz } from "@/lib/mock-data";
 
 export function QuizzesCard() {
-  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
-
-  useEffect(() => {
-    // Simulate fetching quizzes
-    setQuizzes(mockQuizzes);
-  }, []);
-
-  const isOverdue = (date: Date) => new Date(date) < new Date();
-
   return (
     <Card className="h-full flex flex-col">
       <CardHeader>
@@ -43,19 +30,7 @@ export function QuizzesCard() {
       </CardHeader>
       <CardContent className="flex-grow">
         <div className="space-y-4">
-          {quizzes.length > 0 ? quizzes.map((quiz) => (
-            <div key={quiz.id} className="flex items-center gap-4">
-              <div className="flex-1 space-y-1">
-                <p className="font-medium">{quiz.title}</p>
-                <p className="text-sm text-muted-foreground">{quiz.course} &bull; {quiz.questionCount} questions</p>
-              </div>
-              <Badge variant={isOverdue(quiz.dueDate) ? 'destructive' : 'outline'} className="text-sm" style={{backgroundColor: isOverdue(quiz.dueDate) ? '' : 'hsl(var(--accent) / 0.2)', color: isOverdue(quiz.dueDate) ? '' : 'hsl(var(--accent-foreground))'}}>
-                Due {new Date(quiz.dueDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-              </Badge>
-            </div>
-          )) : (
             <p className="text-muted-foreground text-center">No upcoming quizzes.</p>
-          )}
         </div>
       </CardContent>
     </Card>
