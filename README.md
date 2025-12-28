@@ -1,5 +1,5 @@
-npm# Firebase Studio
+# Agenda+
 
-This is a NextJS starter in Firebase Studio.
+This is a Next.js and Genkit project created in Firebase Studio.
 
-To get started, take a look at src/app/page.tsx.
+To get started, run `npm install` and then `npm run dev`.
