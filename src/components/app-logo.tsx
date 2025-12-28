@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -14,7 +15,8 @@ export function AppLogo() {
         dominantBaseline="central"
         textAnchor="middle"
         fontSize="24"
-        fontFamily="Great Vibes, cursive"
+        fontFamily="Arial, sans-serif"
+        fontWeight="bold"
         fill="url(#grad1)"
         dy=".1em"
       >
