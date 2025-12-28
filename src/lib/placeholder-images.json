@@ -1,28 +1,10 @@
-'use client'
-
-import React from 'react'
-
-import { AssignmentsCard } from '@/components/dashboard/assignments-card'
-import { QuizzesCard } from '@/components/dashboard/quizzes-card'
-import type { User } from '@/lib/types'
-
-type DashboardPageProps = {
-  user?: User | null;
-  setImportSyllabusOpen?: (open: boolean) => void;
-};
-
-
-export function DashboardPage({ user, setImportSyllabusOpen }: DashboardPageProps) {
-  return (
-    <div className="flex-1 animate-in fade-in-50 duration-500">
-      <div className="grid gap-6 auto-rows-fr grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
-        <div className="lg:col-span-6">
-            <AssignmentsCard />
-        </div>
-        <div className="lg:col-span-6">
-            <QuizzesCard />
-        </div>
-      </div>
-    </div>
-  )
+{
+  "placeholderImages": [
+    {
+      "id": "user-avatar",
+      "description": "Default user avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGVyc29uJTIwZmFjZXxlbnwwfHx8fDE3NjY5MjYwNTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person face"
+    }
+  ]
 }

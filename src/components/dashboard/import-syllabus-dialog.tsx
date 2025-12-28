@@ -20,6 +20,7 @@ import { useAssignments } from "@/context/assignments-context";
 import { useGrades } from "@/context/grades-context";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import { useQuizzes } from "@/context/quizzes-context";
 
 type ImportSyllabusDialogProps = {
   open: boolean;
@@ -32,6 +33,7 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const { addAssignment: addAssignmentToContext } = useAssignments();
+  const { addQuiz: addQuizToContext } = useQuizzes();
   const { addCourse } = useGrades();
   const [activeTab, setActiveTab] = useState("paste");
 
@@ -84,11 +86,18 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
         })
       });
       
-      console.log("Extracted Quizzes:", extractedData.quizzes);
+      extractedData.quizzes.forEach(quiz => {
+        addQuizToContext({
+            title: quiz.title,
+            course: extractedData.courseName,
+            dueDate: new Date(quiz.dueDate),
+            questionCount: quiz.questionCount
+        })
+      });
 
       toast({
         title: "Import Successful!",
-        description: `${extractedData.assignments.length} assignments for ${extractedData.courseName} have been added.`,
+        description: `${extractedData.assignments.length} assignments and ${extractedData.quizzes.length} quizzes for ${extractedData.courseName} have been added.`,
       });
       
       // Reset and close
