@@ -1,3 +1,4 @@
+
 import type {NextConfig} from 'next';
 const withPWA = require('next-pwa')({
   dest: 'public',
@@ -9,6 +10,7 @@ const withPWA = require('next-pwa')({
 
 const nextConfig: NextConfig = {
   /* config options here */
+  output: 'standalone',
   typescript: {
     ignoreBuildErrors: true,
   },
