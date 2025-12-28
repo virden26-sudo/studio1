@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -6,8 +5,7 @@ import * as React from 'react';
 export function AppLogo() {
   return (
     <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="64" height="64" rx="12" fill="hsl(var(--sidebar-accent))"/>
-      <circle cx="32" cy="32" r="28" fill="hsl(var(--background))" />
+      <circle cx="32" cy="32" r="32" fill="hsl(var(--background))" />
       <text
         x="50%"
         y="50%"
