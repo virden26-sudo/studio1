@@ -1,7 +1,7 @@
 
 "use client";
 
-import { FileQuestion, MoreVertical } from "lucide-react";
+import { FileQuestion, MoreVertical, UploadCloud } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -16,7 +16,12 @@ import { Badge } from "../ui/badge";
 import { ScrollArea } from "../ui/scroll-area";
 import { format } from "date-fns";
 
-export function QuizzesCard() {
+type QuizzesCardProps = {
+  setImportSyllabusOpen?: (open: boolean) => void;
+};
+
+
+export function QuizzesCard({ setImportSyllabusOpen }: QuizzesCardProps) {
   const { quizzes, loading } = useQuizzes();
   
   const upcomingQuizzes = [...quizzes]
@@ -63,10 +68,17 @@ export function QuizzesCard() {
                   </div>
               ))
             ) : (
-              <div className="flex flex-col items-center justify-center h-full text-center">
-                <p className="text-muted-foreground">No upcoming quizzes.</p>
-                <p className="text-sm text-muted-foreground">Try importing a syllabus to get started!</p>
-              </div>
+                <div className="flex flex-col items-center justify-center h-full text-center p-8">
+                    <div className="flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+                        <FileQuestion className="h-8 w-8 text-muted-foreground" />
+                    </div>
+                    <h3 className="font-semibold text-lg mb-1">No Quizzes Yet</h3>
+                    <p className="text-muted-foreground text-sm mb-4">Sync with your syllabus to see your quizzes.</p>
+                    <Button variant="secondary" onClick={() => setImportSyllabusOpen?.(true)}>
+                        <UploadCloud className="mr-2 h-4 w-4" />
+                        Sync Data
+                    </Button>
+                </div>
             )}
             </div>
         </ScrollArea>
