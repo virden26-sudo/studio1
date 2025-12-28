@@ -5,16 +5,15 @@ import * as React from 'react';
 
 export function AppLogo() {
   return (
-    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="48" height="48" rx="8" fill="hsl(var(--sidebar-accent))"/>
-      <circle cx="24" cy="24" r="18" fill="hsl(var(--background))" />
-      <circle cx="24" cy="24" r="17" stroke="hsl(var(--border))" strokeWidth="2"/>
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="64" height="64" rx="12" fill="hsl(var(--sidebar-accent))"/>
+      <circle cx="32" cy="32" r="28" fill="hsl(var(--background))" />
       <text
         x="50%"
         y="50%"
         dominantBaseline="central"
         textAnchor="middle"
-        fontSize="22"
+        fontSize="34"
         fontFamily="'Segoe Script', cursive"
         fontWeight="bold"
         fontStyle="italic"
