@@ -31,7 +31,7 @@ Follow these steps:
 
 3.  **Deploy your app:** From your project's root directory, run the deploy command.
     ```bash
-    
+    firebase deploy --only apphosting
     ```
 
 After the deployment is complete, the Firebase CLI will provide you with a public URL where your application is live. Anyone with this URL will be able to access and use your Agenda+ app.
