@@ -17,7 +17,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import { format } from "date-fns";
 
 type QuizzesCardProps = {
-  setImportSyllabusOpen?: (open: boolean) => void;
+  setImportSyllabusOpen: (open: boolean) => void;
 };
 
 
@@ -74,7 +74,7 @@ export function QuizzesCard({ setImportSyllabusOpen }: QuizzesCardProps) {
                     </div>
                     <h3 className="font-semibold text-lg mb-1">No Quizzes Yet</h3>
                     <p className="text-muted-foreground text-sm mb-4">Sync with your syllabus to see your quizzes.</p>
-                    <Button variant="secondary" onClick={() => setImportSyllabusOpen?.(true)}>
+                    <Button variant="secondary" onClick={() => setImportSyllabusOpen(true)}>
                         <UploadCloud className="mr-2 h-4 w-4" />
                         Sync Data
                     </Button>

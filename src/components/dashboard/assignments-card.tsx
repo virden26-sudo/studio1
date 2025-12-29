@@ -18,7 +18,7 @@ import { Skeleton } from "../ui/skeleton";
 import { format } from 'date-fns';
 
 type AssignmentsCardProps = {
-  setImportSyllabusOpen?: (open: boolean) => void;
+  setImportSyllabusOpen: (open: boolean) => void;
 };
 
 export function AssignmentsCard({ setImportSyllabusOpen }: AssignmentsCardProps) {
@@ -76,7 +76,7 @@ export function AssignmentsCard({ setImportSyllabusOpen }: AssignmentsCardProps)
                 </div>
                 <h3 className="font-semibold text-lg mb-1">No Assignments Yet</h3>
                 <p className="text-muted-foreground text-sm mb-4">Sync with your syllabus to get started.</p>
-                <Button variant="secondary" onClick={() => setImportSyllabusOpen?.(true)}>
+                <Button variant="secondary" onClick={() => setImportSyllabusOpen(true)}>
                     <UploadCloud className="mr-2 h-4 w-4" />
                     Sync Data
                 </Button>
