@@ -1,0 +1,31 @@
+'use client'
+
+import React from 'react'
+
+import { AssignmentsCard } from '@/components/dashboard/assignments-card'
+import { QuizzesCard } from '@/components/dashboard/quizzes-card'
+import type { User } from '@/lib/types'
+import { QuizzesProvider } from '@/context/quizzes-context'
+
+type DashboardPageProps = {
+  user?: User | null;
+  setImportSyllabusOpen?: (open: boolean) => void;
+};
+
+
+export function DashboardPage({ user, setImportSyllabusOpen }: DashboardPageProps) {
+  return (
+    <QuizzesProvider>
+      <div className="flex-1 animate-in fade-in-50 duration-500">
+        <div className="grid gap-6 auto-rows-fr grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
+          <div className="lg:col-span-3">
+              <AssignmentsCard setImportSyllabusOpen={setImportSyllabusOpen} />
+          </div>
+          <div className="lg:col-span-3">
+              <QuizzesCard setImportSyllabusOpen={setImportSyllabusOpen}/>
+          </div>
+        </div>
+      </div>
+    </QuizzesProvider>
+  )
+}
