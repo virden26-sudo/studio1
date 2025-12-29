@@ -22,7 +22,7 @@ const syllabusPrompt = ai.definePrompt({
 4.  **Format Due Dates:**
     *   All due dates MUST be converted to the strict 'YYYY-MM-DD' ISO 8601 format.
     *   Use today's date, which is {{{currentDate}}}, as a reference to resolve relative dates like "next Tuesday", "in two weeks", or "end of the month".
-    *   If a due date is ambiguous or cannot be determined, omit that specific item from the list rather than providing an invalid date.
+    *   **If a due date for a specific assignment or quiz is ambiguous or cannot be reliably determined, you MUST omit that entire item from the list rather than providing a malformed or incorrect date. This is a critical rule.**
 5.  **Structure the Output:** The final output MUST be a valid JSON object that strictly conforms to the requested schema. Pay close attention to data types (strings, arrays of objects).
 
 **Today's Date:** {{{currentDate}}}
