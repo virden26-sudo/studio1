@@ -1,5 +1,4 @@
 
-import type {NextConfig} from 'next';
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
   register: true,
@@ -8,7 +7,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
 });
 
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   /* config options here */
   output: 'standalone',
   typescript: {
@@ -41,4 +40,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withPWA(nextConfig);
+module.exports = withPWA(nextConfig);
