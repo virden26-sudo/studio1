@@ -1,8 +1,10 @@
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
-  disable: false,
-  register: false,
+  disable: isDev,
+  register: true,
   skipWaiting: true,
 });
 
