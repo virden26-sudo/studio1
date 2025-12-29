@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import "./globals.css";
@@ -202,11 +203,11 @@ function AppShell({ children }: { children: React.ReactNode }) {
   
   if (!isUserLoaded) {
     return (
-      <div className="flex items-center justify-center h-screen bg-background">
-        <div className="flex flex-col items-center justify-center gap-2">
-            <AppLogo />
-            <span className="text-2xl font-headline text-gradient">Agenda Plus</span>
-        </div>
+        <div className="flex h-screen w-full items-center justify-center bg-background">
+            <div className="flex flex-col items-center justify-center gap-2">
+                <AppLogo />
+                <span className="text-2xl font-headline text-gradient">Agenda Plus</span>
+            </div>
       </div>
     );
   }
@@ -446,4 +447,5 @@ export default function RootLayout({
   );
 }
 
+    
     
