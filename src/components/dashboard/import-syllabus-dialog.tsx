@@ -71,7 +71,19 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
             });
             return;
         }
-        fileContent = await file.text();
+        
+        try {
+            fileContent = await file.text();
+        } catch (readError) {
+            console.error("File read error:", readError);
+            toast({
+                variant: "destructive",
+                title: "Could not read file",
+                description: "There was a problem reading the selected file. Please try again.",
+            });
+            setLoading(false);
+            return;
+        }
     }
 
 
@@ -80,6 +92,15 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
     setLoading(true);
     try {
       const extractedData = await extractSyllabusData(fileContent);
+      
+      if (!extractedData.courseName && extractedData.assignments.length === 0 && extractedData.quizzes.length === 0) {
+        toast({
+            variant: "destructive",
+            title: "Import Failed",
+            description: "The AI could not extract any useful information. Please check the content and try again.",
+        });
+        return;
+      }
       
       addCourse(extractedData.courseName);
       
@@ -103,7 +124,7 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
 
       toast({
         title: "Import Successful!",
-        description: `${extractedData.assignments.length} assignments and ${extractedData.quizzes.length} quizzes for ${extractedData.courseName} have been added.`,
+        description: `${extractedData.assignments.length} assignments and ${extractedData.quizzes.length} quizzes for ${extractedData.courseName || 'your course'} have been added.`,
       });
       
       // Reset and close
@@ -115,7 +136,7 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
       toast({
         variant: "destructive",
         title: "Import Failed",
-        description: "Could not extract data from the syllabus. Please check the content or file format.",
+        description: "Could not extract data from the syllabus. Please check the content or file format and try again.",
       });
     } finally {
       setLoading(false);
@@ -169,7 +190,7 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
                         type="file" 
                         onChange={handleFileChange} 
                         className="w-full h-10"
-                        accept="*"
+                        accept=".txt,.pdf,.doc,.docx"
                     />
                     </div>
                     {file && <p className="text-sm text-muted-foreground mt-2">Selected: {file.name}</p>}

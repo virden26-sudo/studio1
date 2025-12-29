@@ -51,12 +51,12 @@ export function AddAssignmentDialog({ open, onOpenChange }: AddAssignmentDialogP
           const timezoneOffset = parsedDate.getTimezoneOffset() * 60000;
           setDueDate(new Date(parsedDate.getTime() + timezoneOffset));
       } else {
-          toast({ variant: "destructive", title: "AI couldn't determine a valid date." });
+          toast({ variant: "destructive", title: "AI couldn't determine a valid date.", description: "Please set the due date manually." });
           setDueDate(undefined);
       }
     } catch (error) {
       console.error("AI parsing failed", error);
-      toast({ variant: "destructive", title: "AI parsing failed", description: "Please try rephrasing your request." });
+      toast({ variant: "destructive", title: "AI Parsing Failed", description: "The AI couldn't understand the assignment details. Please try rephrasing or enter the details manually." });
     } finally {
       setLoading(false);
     }

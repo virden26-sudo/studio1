@@ -39,7 +39,7 @@ export default function StudyPage() {
       toast({
         variant: "destructive",
         title: "Error Generating Plan",
-        description: "The AI failed to create a study plan. Please try again.",
+        description: "The AI failed to create a study plan. Please try again later.",
       });
     } finally {
       setLoading(false);
