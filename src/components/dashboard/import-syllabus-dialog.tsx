@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { UploadCloud, File as FileIcon, Loader2, ClipboardPaste } from "lucide-react";
+import { UploadCloud, File as FileIcon, Loader2, ClipboardPaste, ExternalLink } from "lucide-react";
 import { extractSyllabusData } from "@/ai/flows/extract-syllabus-flow";
 import { useAssignments } from "@/context/assignments-context";
 import { useGrades } from "@/context/grades-context";
@@ -42,6 +42,11 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
     if (e.target.files) {
       setFile(e.target.files[0]);
     }
+  };
+
+  const handlePortalClick = () => {
+    const portalUrl = localStorage.getItem("studentPortalUrl") || "https://navigate.nu.edu/d2l/home";
+    window.open(portalUrl, "_blank");
   };
 
   const handleImport = async () => {
@@ -82,7 +87,8 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
         addAssignmentToContext({
             title: assignment.title,
             course: extractedData.courseName,
-            dueDate: new Date(assignment.dueDate),
+            // The AI returns a date at UTC midnight. Adjust to local timezone.
+            dueDate: new Date(new Date(assignment.dueDate).getTime() + new Date().getTimezoneOffset() * 60000),
         })
       });
       
@@ -90,7 +96,7 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
         addQuizToContext({
             title: quiz.title,
             course: extractedData.courseName,
-            dueDate: new Date(quiz.dueDate),
+            dueDate: new Date(new Date(quiz.dueDate).getTime() + new Date().getTimezoneOffset() * 60000),
             questionCount: quiz.questionCount
         })
       });
@@ -109,7 +115,7 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
       toast({
         variant: "destructive",
         title: "Import Failed",
-        description: "Could not extract data from the syllabus. Please try a different file or check the pasted text.",
+        description: "Could not extract data from the syllabus. Please check the content or file format.",
       });
     } finally {
       setLoading(false);
@@ -138,26 +144,32 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
                     Upload File
                 </TabsTrigger>
             </TabsList>
-            <TabsContent value="paste" className="py-4 space-y-2">
-                 <Label htmlFor="syllabus-text">Syllabus or Portal Content</Label>
-                 <Textarea 
-                    id="syllabus-text"
-                    placeholder="Paste the content from your syllabus or student portal here..."
-                    className="h-48 resize-none"
-                    value={pastedText}
-                    onChange={(e) => setPastedText(e.target.value)}
-                 />
+            <TabsContent value="paste" className="py-4 space-y-4">
+                 <Button variant="outline" className="w-full" onClick={handlePortalClick}>
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    Open Student Portal
+                 </Button>
+                 <div className="space-y-2">
+                    <Label htmlFor="syllabus-text">Syllabus or Portal Content</Label>
+                    <Textarea 
+                        id="syllabus-text"
+                        placeholder="Paste the content from your syllabus or student portal here..."
+                        className="h-48 resize-none"
+                        value={pastedText}
+                        onChange={(e) => setPastedText(e.target.value)}
+                    />
+                 </div>
             </TabsContent>
             <TabsContent value="upload" className="py-4">
                 <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="syllabus-file">Syllabus File (.txt, .md)</Label>
+                    <Label htmlFor="syllabus-file">Syllabus File</Label>
                     <div className="relative">
                     <Input 
                         id="syllabus-file" 
                         type="file" 
                         onChange={handleFileChange} 
                         className="w-full h-10"
-                        accept=".txt,.md,text/plain,text/markdown"
+                        accept="*"
                     />
                     </div>
                     {file && <p className="text-sm text-muted-foreground mt-2">Selected: {file.name}</p>}

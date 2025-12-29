@@ -17,6 +17,7 @@ import {
   Trash2,
   Share2,
   LogOut,
+  ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -33,6 +34,7 @@ import {
   SidebarMenuButton,
   SidebarFooter,
   SidebarInset,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import {
@@ -76,9 +78,29 @@ import { AssignmentsProvider } from "@/context/assignments-context";
 import { GradesProvider } from "@/context/grades-context";
 import { QuizzesProvider } from "@/context/quizzes-context";
 
+
+function NavLink({ href, children }: { href: string, children: React.ReactNode }) {
+    const { isMobile, setOpenMobile } = useSidebar();
+    const pathname = usePathname();
+    const isActive = pathname === href;
+
+    const handleClick = () => {
+        if (isMobile) {
+            setOpenMobile(false);
+        }
+    };
+
+    return (
+        <Link href={href} onClick={handleClick} data-active={isActive}>
+            {children}
+        </Link>
+    );
+}
+
 function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { toast } = useToast();
+  const { isMobile, setOpenMobile } = useSidebar();
   const [addAssignmentOpen, setAddAssignmentOpen] = React.useState(false);
   const [schedulerOpen, setSchedulerOpen] = React.useState(false);
   const [importSyllabusOpen, setImportSyllabusOpen] = React.useState(false);
@@ -193,7 +215,6 @@ function AppShell({ children }: { children: React.ReactNode }) {
     <AssignmentsProvider>
       <GradesProvider>
         <QuizzesProvider>
-          <SidebarProvider>
             <Sidebar
               collapsible="icon"
               className="group-data-[variant=sidebar]:border-r-0"
@@ -226,16 +247,19 @@ function AppShell({ children }: { children: React.ReactNode }) {
                         isActive={pathname === item.href}
                         tooltip={item.label}
                       >
-                        <Link href={item.href}>
+                        <NavLink href={item.href}>
                           <item.icon />
                           <span>{item.label}</span>
-                        </Link>
+                        </NavLink>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
                   <SidebarMenuItem>
                       <SidebarMenuButton
-                          onClick={() => setSchedulerOpen(true)}
+                          onClick={() => {
+                            setSchedulerOpen(true);
+                            if (isMobile) setOpenMobile(false);
+                          }}
                           tooltip="AI Scheduler"
                         >
                           <Bot/>
@@ -279,7 +303,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
                             Edit Profile
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={handlePortalClick}>
-                            <Settings className="mr-2 h-4 w-4" />
+                            <ExternalLink className="mr-2 h-4 w-4" />
                             University Portal
                           </DropdownMenuItem>
                       </DropdownMenuGroup>
@@ -369,7 +393,6 @@ function AppShell({ children }: { children: React.ReactNode }) {
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-          </SidebarProvider>
         </QuizzesProvider>
       </GradesProvider>
     </AssignmentsProvider>
@@ -412,10 +435,12 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased h-full">
-        <AppShell>
-          {children}
-        </AppShell>
-        <Toaster />
+        <SidebarProvider>
+            <AppShell>
+            {children}
+            </AppShell>
+            <Toaster />
+        </SidebarProvider>
       </body>
     </html>
   );
