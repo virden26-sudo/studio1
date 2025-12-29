@@ -19,6 +19,7 @@ import {
   Share2,
   LogOut,
   ExternalLink,
+  BookCopy,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -186,6 +187,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { href: "/", icon: Book, label: "Dashboard" },
+    { href: "/assignments", icon: BookCopy, label: "Assignments" },
     { href: "/grades", icon: Star, label: "Grades" },
     { href: "/calendar", icon: Calendar, label: "Calendar" },
     { href: "/study", icon: BrainCircuit, label: "Study" },
@@ -206,9 +208,9 @@ function AppShell({ children }: { children: React.ReactNode }) {
   if (!isUserLoaded) {
     return (
         <div className="flex h-screen w-full items-center justify-center bg-background">
-            <div className="flex flex-col items-center justify-center gap-2">
+            <div className="flex flex-col items-center justify-center gap-4">
                 <AppLogo />
-                <span className="text-4xl font-extrabold font-headline text-gradient" style={{ textShadow: '2px 2px 8px hsla(var(--foreground), 0.4)'}}>Agenda Plus</span>
+                <span className="text-5xl font-extrabold font-headline text-gradient" style={{ textShadow: '2px 4px 6px hsla(var(--foreground), 0.3), 0px 5px 15px hsla(var(--foreground), 0.2)'}}>Agenda Plus</span>
             </div>
       </div>
     );
