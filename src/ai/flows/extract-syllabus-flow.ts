@@ -9,14 +9,30 @@ const syllabusPrompt = ai.definePrompt({
     name: 'syllabusPrompt',
     input: { schema: z.object({ syllabusText: z.string(), currentDate: z.string() }) },
     output: { schema: SyllabusDataSchema },
-    prompt: `You are an expert academic assistant. Your task is to parse the following syllabus text and extract key information about the course, its assignments, and quizzes.
+    prompt: `You are an expert-level data extraction and formatting AI. Your primary function is to meticulously parse unstructured text from a syllabus and convert it into a perfectly structured JSON object.
 
-Today's date is {{{currentDate}}}. When extracting due dates, please resolve them to a specific calendar date in YYYY-MM-DD format. For example, "due next Friday" should be converted to the correct date.
+**Critical Instructions:**
+1.  **Analyze the Entire Text:** Read the complete syllabus text provided below.
+2.  **Identify Key Information:** Your goal is to extract the course name, all assignments, and all quizzes.
+3.  **Handle Imperfect Data:** The text may be messy, incomplete, or poorly formatted. You MUST handle this gracefully.
+    *   If you cannot find a course name, return an empty string "" for the 'courseName' field.
+    *   If you cannot find any assignments, return an empty array [] for the 'assignments' field.
+    *   If you cannot find any quizzes, return an empty array [] for the 'quizzes' field.
+    *   **Do NOT fail or error out if information is missing.** Your job is to extract what is present and format it correctly.
+4.  **Format Due Dates:**
+    *   All due dates MUST be converted to the strict 'YYYY-MM-DD' ISO 8601 format.
+    *   Use today's date, which is {{{currentDate}}}, as a reference to resolve relative dates like "next Tuesday", "in two weeks", or "end of the month".
+    *   If a due date is ambiguous or cannot be determined, omit that specific item from the list rather than providing an invalid date.
+5.  **Structure the Output:** The final output MUST be a valid JSON object that strictly conforms to the requested schema. Pay close attention to data types (strings, arrays of objects).
 
-Syllabus Text:
+**Today's Date:** {{{currentDate}}}
+
+**Syllabus Text to Analyze:**
+---
 {{{syllabusText}}}
+---
 
-Analyze the text provided. Do your best to identify the course name, and list all assignments and quizzes you can find. It is okay if some information is missing (e.g., no quizzes are listed, or the course name is not obvious). Extract all the information you can from the text. Return the information in the structured JSON format requested.`,
+Now, perform the extraction and provide the structured JSON output.`,
 });
 
 
