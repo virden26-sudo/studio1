@@ -189,6 +189,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
     { href: "/grades", icon: Star, label: "Grades" },
     { href: "/calendar", icon: Calendar, label: "Calendar" },
     { href: "/study", icon: BrainCircuit, label: "Study" },
+    { href: "/live", icon: Video, label: "Live Session" },
   ];
 
   const pageTitles: { [key: string]: string } = {
@@ -196,7 +197,8 @@ function AppShell({ children }: { children: React.ReactNode }) {
     '/assignments': 'Assignments',
     '/grades': 'Grades',
     '/calendar': 'Calendar',
-    '/study': 'Study Hub'
+    '/study': 'Study Hub',
+    '/live': 'Live Session'
   };
   
   const pageTitle = pageTitles[pathname] || "Dashboard";
@@ -265,18 +267,6 @@ function AppShell({ children }: { children: React.ReactNode }) {
                         >
                           <Bot/>
                           <span>AI Scheduler</span>
-                        </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                      <SidebarMenuButton
-                          asChild
-                          isActive={pathname==='/study' && !pathname.startsWith('/study/')}
-                          tooltip="Live Session"
-                        >
-                          <Link href="#">
-                              <Video/>
-                              <span>Live Session</span>
-                          </Link>
                         </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
