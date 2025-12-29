@@ -206,7 +206,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
         <div className="flex h-screen w-full items-center justify-center bg-background">
             <div className="flex flex-col items-center justify-center gap-2">
                 <AppLogo />
-                <span className="text-5xl font-bold font-headline text-gradient" style={{ textShadow: '2px 2px 4px hsla(var(--foreground), 0.3)'}}>Agenda Plus</span>
+                <span className="text-4xl font-extrabold font-headline text-gradient" style={{ textShadow: '2px 2px 8px hsla(var(--foreground), 0.4)'}}>Agenda Plus</span>
             </div>
       </div>
     );
