@@ -16,7 +16,7 @@ Today's date is {{{currentDate}}}. When extracting due dates, please resolve the
 Syllabus Text:
 {{{syllabusText}}}
 
-Extract all assignments and quizzes, paying close attention to their titles and due dates. Return the information in the structured JSON format requested.`,
+Analyze the text provided. Identify the course name, and list all assignments and quizzes you can find. Pay close attention to their titles and due dates. If some information is missing, do your best with what is available. Return the information in the structured JSON format requested.`,
 });
 
 
