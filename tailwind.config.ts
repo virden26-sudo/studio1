@@ -14,6 +14,9 @@ export default {
         headline: ['"Great Vibes"', 'cursive'],
         code: ['monospace'],
       },
+      fontWeight: {
+        'extra-bold': '900',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

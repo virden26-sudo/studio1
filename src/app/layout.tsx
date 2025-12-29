@@ -206,7 +206,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
         <div className="flex h-screen w-full items-center justify-center bg-background">
             <div className="flex flex-col items-center justify-center gap-2">
                 <AppLogo />
-                <span className="text-2xl font-headline text-gradient">Agenda Plus</span>
+                <span className="text-5xl font-bold font-headline text-gradient" style={{ textShadow: '2px 2px 4px hsla(var(--foreground), 0.3)'}}>Agenda Plus</span>
             </div>
       </div>
     );
@@ -433,7 +433,7 @@ export default function RootLayout({
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased h-full">
         <SidebarProvider>
@@ -446,6 +446,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-    
-    
