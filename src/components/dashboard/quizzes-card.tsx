@@ -27,7 +27,14 @@ export function QuizzesCard({ setImportSyllabusOpen }: QuizzesCardProps) {
   const upcomingQuizzes = [...quizzes]
     .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
 
-  const isOverdue = (date: Date) => new Date(date) < new Date();
+  const isOverdue = (date: Date) => new Date(date) < new Date() && !isDateToday(date);
+  const isDateToday = (date: Date) => {
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+           date.getMonth() === today.getMonth() &&
+           date.getFullYear() === today.getFullYear();
+  }
+
 
   return (
     <Card className="h-full flex flex-col">
@@ -63,7 +70,7 @@ export function QuizzesCard({ setImportSyllabusOpen }: QuizzesCardProps) {
                           <p className="text-sm text-muted-foreground">{quiz.course} {quiz.questionCount ? ` • ${quiz.questionCount} questions` : ''}</p>
                       </div>
                       <Badge variant={isOverdue(quiz.dueDate) ? 'destructive' : 'outline'} className="text-sm">
-                          {format(new Date(quiz.dueDate), 'MMM d')}
+                          {isDateToday(quiz.dueDate) ? 'Today' : format(new Date(quiz.dueDate), 'MMM d')}
                       </Badge>
                   </div>
               ))

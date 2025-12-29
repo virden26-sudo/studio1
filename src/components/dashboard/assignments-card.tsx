@@ -28,7 +28,14 @@ export function AssignmentsCard({ setImportSyllabusOpen }: AssignmentsCardProps)
     .filter(a => !a.completed)
     .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
   
-  const isOverdue = (date: Date) => new Date(date) < new Date();
+  const isOverdue = (date: Date) => new Date(date) < new Date() && !isDateToday(date);
+  const isDateToday = (date: Date) => {
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+           date.getMonth() === today.getMonth() &&
+           date.getFullYear() === today.getFullYear();
+  }
+
 
   return (
     <Card className="h-full flex flex-col">
@@ -64,8 +71,8 @@ export function AssignmentsCard({ setImportSyllabusOpen }: AssignmentsCardProps)
                           <label htmlFor={`assignment-${assignment.id}`} className="font-medium cursor-pointer">{assignment.title}</label>
                           <p className="text-sm text-muted-foreground">{assignment.course}</p>
                       </div>
-                      <Badge variant={isOverdue(assignment.dueDate) && !assignment.completed ? 'destructive' : 'outline'} className="text-sm">
-                          {format(new Date(assignment.dueDate), 'MMM d')}
+                      <Badge variant={isOverdue(assignment.dueDate) ? 'destructive' : 'outline'} className="text-sm">
+                          {isDateToday(assignment.dueDate) ? 'Today' : format(new Date(assignment.dueDate), 'MMM d')}
                       </Badge>
                   </div>
               ))

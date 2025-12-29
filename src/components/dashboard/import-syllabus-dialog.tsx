@@ -51,6 +51,7 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
 
   const handleImport = async () => {
     let fileContent: string | null = null;
+    setLoading(true);
     
     if (activeTab === 'paste') {
         if (!pastedText.trim()) {
@@ -59,6 +60,7 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
                 title: "No text provided",
                 description: "Please paste your syllabus content into the text area.",
             });
+            setLoading(false);
             return;
         }
         fileContent = pastedText;
@@ -69,11 +71,21 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
                 title: "No file selected",
                 description: "Please choose a syllabus file to import.",
             });
+            setLoading(false);
             return;
         }
         
         try {
-            fileContent = await file.text();
+            fileContent = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    resolve(event.target?.result as string);
+                };
+                reader.onerror = (error) => {
+                    reject(error);
+                };
+                reader.readAsText(file);
+            });
         } catch (readError) {
             console.error("File read error:", readError);
             toast({
@@ -87,9 +99,11 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
     }
 
 
-    if (!fileContent) return;
+    if (!fileContent) {
+        setLoading(false);
+        return;
+    }
 
-    setLoading(true);
     try {
       const extractedData = await extractSyllabusData(fileContent);
       
@@ -99,6 +113,7 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
             title: "Import Failed",
             description: "The AI could not extract any useful information. Please check the content and try again.",
         });
+        setLoading(false);
         return;
       }
       
@@ -190,7 +205,7 @@ export function ImportSyllabusDialog({ open, onOpenChange }: ImportSyllabusDialo
                         type="file" 
                         onChange={handleFileChange} 
                         className="w-full h-10"
-                        accept=".txt,.pdf,.doc,.docx"
+                        accept=".txt,.pdf,.doc,.docx,.html,.md"
                     />
                     </div>
                     {file && <p className="text-sm text-muted-foreground mt-2">Selected: {file.name}</p>}
