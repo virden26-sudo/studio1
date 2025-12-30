@@ -1,8 +1,9 @@
 
 'use server';
 
-import {genkit, genkitNext} from '@genkit-ai/next';
+import {genkit} from 'genkit';
 import {googleAI} from '@genkit-ai/google-genai';
+import {genkitNext} from '@genkit-ai/next';
 
 export const ai = genkit(
   genkitNext({
