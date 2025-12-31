@@ -2,7 +2,7 @@
 'use server';
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 import { AssignmentSchema } from '@/ai/schemas';
 
 const SingleAssignmentSchema = AssignmentSchema.pick({ title: true, course: true, dueDate: true });

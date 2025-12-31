@@ -1,5 +1,5 @@
 
-import { z } from 'genkit';
+import { z } from 'zod';
 
 export const AssignmentSchema = z.object({
   title: z.string().describe('The title of the assignment.'),

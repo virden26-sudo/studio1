@@ -2,7 +2,7 @@
 'use server';
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 import { SyllabusDataSchema } from '@/ai/schemas';
 
 const syllabusPrompt = ai.definePrompt({
